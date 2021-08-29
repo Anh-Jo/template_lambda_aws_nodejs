@@ -1,0 +1,17 @@
+{
+  "name": "lambdas",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "deploy": "npm run build_and_zip && npm run update_lambda && npm run remove_zip_and_bundle ",
+    "build_and_zip": "npm run build && npm run zip",
+    "build": "rollup $npm_config_name/index.js --file $npm_config_name/bundle/index.js --format cjs",
+    "zip": "(cd $npm_config_name/bundle && zip ../../$npm_config_name.zip index.js)",
+    "update_lambda": "aws lambda update-function-code --function-name $npm_config_name --zip-file fileb://$npm_config_name.zip --profile=thebiga >> logs/deploy_$npm_config_name.txt",
+    "remove_zip_and_bundle": "rm -rf $npm_config_name/bundle && rm $npm_config_name.zip"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

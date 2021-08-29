@@ -1,0 +1,8 @@
+
+node_modules/
+.DS_STORE
+*.zip
+*.log
+context.json
+event.json
+.idea
