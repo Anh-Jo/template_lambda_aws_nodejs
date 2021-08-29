@@ -6,11 +6,12 @@
   "scripts": {
     "create": "mkdir $npm_config_name && (cd $npm_config_name && cp ../logs/.template.js . && mv .template.js index.js)",
     "deploy": "npm run build_and_zip && npm run update_lambda && npm run remove_zip_and_bundle ",
-    "build_and_zip": "npm run build && npm run zip",
+    "build_and_zip": "npm run build && npm run zip && npm run cp_node_modules",
     "build": "rollup $npm_config_name/index.js --file $npm_config_name/bundle/index.js --format cjs",
     "zip": "(cd $npm_config_name/bundle && zip ../../$npm_config_name.zip index.js)",
-    "update_lambda": "aws lambda update-function-code --function-name $npm_config_name --zip-file fileb://$npm_config_name.zip --profile=thebiga >> logs/deploy_$npm_config_name.txt",
-    "remove_zip_and_bundle": "rm -rf $npm_config_name/bundle && rm $npm_config_name.zip"
+    "update_lambda": "aws lambda update-function-code --function-name $npm_config_name --zip-file fileb://$npm_config_name.zip --profile=YOUR_PROFILE_NAME >> logs/deploy_$npm_config_name.txt",
+    "remove_zip_and_bundle": "rm -rf $npm_config_name/bundle && rm $npm_config_name.zip",
+    "cp_node_modules": "zip -ur $npm_config_name.zip node_modules"
   },
   "keywords": [],
   "author": "",
